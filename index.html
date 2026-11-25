@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOC Sentinel · Centro de Operações de Segurança</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  
+  <div class="a11y-bar" role="toolbar" aria-label="Recursos de acessibilidade">
+    <button id="btn-contrast" aria-pressed="false" title="Inverter cores / alto contraste">◐ Contraste</button>
+    <button id="btn-font-up" title="Aumentar fonte">A+</button>
+    <button id="btn-font-reset" title="Restaurar fonte">A</button>
+    <button id="btn-font-down" title="Diminuir fonte">A-</button>
+  </div>
+
+ 
+  <main id="login-screen" class="login">
+    <form id="login-form" class="terminal" autocomplete="off">
+      <h1>SOC Sentinel</h1>
+      <p class="muted">sessão segura · TLS 1.3 · acesso restrito</p>
+      <p class="prompt">&gt; Credenciais de demonstração: <b>admin</b> / <b>soc@2026</b></p>
+      <label for="user">Usuário ou e-mail</label>
+      <input id="user" type="text" placeholder="analista@empresa.com" required>
+      <label for="pass">Senha</label>
+      <input id="pass" type="password" placeholder="••••••••" required>
+      <p id="login-msg" class="login-msg" role="status"></p>
+      <button type="submit" class="btn-primary">Acessar sistema</button>
+    </form>
+  </main>
+
+  
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <strong class="brand">SOC Sentinel</strong>
+      <nav class="tabs" role="tablist" aria-label="Seções do painel">
+        <button class="tab active" role="tab" data-tab="threats" aria-selected="true">Ameaças</button>
+        <button class="tab" role="tab" data-tab="map" aria-selected="false">Mapa global</button>
+        <button class="tab" role="tab" data-tab="cams" aria-selected="false">Câmeras</button>
+        <button class="tab" role="tab" data-tab="game" aria-selected="false">Defesa</button>
+      </nav>
+      <button id="btn-logout" class="btn-ghost">Sair</button>
+    </header>
+
+    
+    <section id="tab-threats" class="panel active" role="tabpanel">
+      <div class="stats">
+        <div class="card"><span class="muted">Invasões bloqueadas</span><b id="stat-blocked" class="big green">0</b></div>
+        <div class="card"><span class="muted">Ataques ativos</span><b id="stat-active" class="big red">0</b></div>
+        <div class="card"><span class="muted">Firewall</span><b class="big green">● Operacional</b></div>
+      </div>
+      <div class="card table-wrap">
+        <table>
+          <caption class="muted">Registros em tempo real</caption>
+          <thead><tr><th>IP de origem</th><th>País</th><th>Ataque</th><th>Horário</th><th>Status</th></tr></thead>
+          <tbody id="log-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  
+    <section id="tab-map" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <svg id="world-map" viewBox="0 0 1000 500" role="img" aria-label="Mapa-múndi com ataques em tempo real"></svg>
+        <ul class="legend">
+          <li><i class="dot bg-red"></i>Ataque crítico</li>
+          <li><i class="dot bg-yellow"></i>Ameaça moderada</li>
+          <li><i class="dot bg-green"></i>Bloqueado / alvo protegido</li>
+        </ul>
+      </div>
+    </section>
+
+    
+    <section id="tab-cams" class="panel" role="tabpanel" hidden>
+      <div id="cam-grid" class="cam-grid"></div>
+    </section>
+
+    
+    <section id="tab-game" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <div class="game-hud">
+          <span>Pontos: <b id="g-score">0</b></span>
+          <span>Recorde: <b id="g-best">0</b></span>
+          <div class="bar" aria-label="Integridade do sistema"><div id="g-bar"></div></div>
+          <b id="g-integrity">100%</b>
+          <button id="g-start" class="btn-primary">Iniciar</button>
+        </div>
+        <div id="game-area" class="game-area">
+          <p id="g-msg" class="g-msg">Clique nos pacotes vermelhos antes que desapareçam.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
